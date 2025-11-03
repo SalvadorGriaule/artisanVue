@@ -11,7 +11,8 @@ class Product extends Model
         'name',
         'descritpion',
         'price',
-        "image"
+        "image",
+        "seller_id"
     ];
 
     public function seller(): BelongsTo
