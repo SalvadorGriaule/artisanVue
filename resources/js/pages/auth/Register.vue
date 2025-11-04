@@ -16,31 +16,31 @@ const isClient = ref(true);
 
 <template>
     <AuthBase
-        title="Create an account"
-        description="Enter your details below to create your account"
+        title="Création d'un compte"
+        description="Sélectionnez votre role et remplissez les détails."
     >
         <Head title="Register" />
-        <nav>
+        <div>
             <button
-                class="w-1/2 rounded-t-xl border border-slate-300 bg-gradient-to-b from-slate-300 to-white p-2"
-                :class="{ active: isClient }"
+                class="w-1/2 rounded-t-xl border border-slate-300 p-2"
+                :class="{'bg-sky-500 outline-2 outline-sky-500': isClient}"
                 @click="isClient = true"
                 type="button"
             >
                 Acheteur</button
             ><button
-                class="w-1/2 rounded-t-xl border border-slate-300 bg-gradient-to-b from-slate-300 to-white p-2"
+                class="w-1/2 rounded-t-xl border border-slate-300 p-2"
+                :class="{'bg-violet-500 outline-2 outline-violet-500': !isClient}"
                 @click="isClient = false"
             >
                 Vendeur
             </button>
-        </nav>
-        <div>
             <Form
                 v-bind="store.form()"
                 :reset-on-success="['password', 'password_confirmation']"
                 v-slot="{ errors, processing }"
-                class="client flex flex-col gap-6"
+                class="flex flex-col gap-6 p-5"
+                :class="{'bg-gradient-to-r from-sky-500 outline-2 outline-sky-500': isClient}"
                 v-show="isClient"
             >
                 <div class="grid gap-6">
@@ -75,12 +75,12 @@ const isClient = ref(true);
                     <div class="grid gap-2">
                         <Label for="adress">Address</Label>
                         <Input
-                            id="adress"
+                            id="addres"
                             type="text"
                             required
                             :tabindex="3"
                             autocomplete="address"
-                            name="address"
+                            name="addres"
                             placeholder="3 rue Azerty 50000 Azer"
                         />
                         <InputError :message="errors.address" />
@@ -163,7 +163,8 @@ const isClient = ref(true);
                 v-bind="store.form()"
                 :reset-on-success="['password', 'password_confirmation']"
                 v-slot="{ errors, processing }"
-                class="seller flex flex-col gap-6"
+                class="flex flex-col gap-6 p-5"
+                :class="{'bg-gradient-to-l from-violet-500 outline-2 outline-violet-500': !isClient}"
                 v-show="!isClient"
             >
                 <div class="grid gap-6">
@@ -186,6 +187,7 @@ const isClient = ref(true);
                         <Input
                             id="siret"
                             type="number"
+                            class="[&::-webkit-inner-spin-button]:appearance-none"
                             required
                             autofocus
                             :tabindex="2"
@@ -210,12 +212,12 @@ const isClient = ref(true);
                     <div class="grid gap-2">
                         <Label for="adress">Address</Label>
                         <Input
-                            id="adress"
+                            id="addres"
                             type="text"
                             required
                             :tabindex="4"
                             autocomplete="address"
-                            name="address"
+                            name="addres"
                             placeholder="3 rue Azerty 50000 Azer"
                         />
                         <InputError :message="errors.address" />
@@ -287,7 +289,7 @@ const isClient = ref(true);
                     <TextLink
                         :href="login()"
                         class="underline underline-offset-4"
-                        :tabindex="6"
+                        :tabindex="8"
                         >Log in</TextLink
                     >
                 </div>
