@@ -4,7 +4,6 @@ namespace App\Actions\Fortify;
 
 use App\Models\User;
 use App\Enums\Role;
-use App\Enums\Role;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
