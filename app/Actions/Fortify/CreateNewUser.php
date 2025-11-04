@@ -29,7 +29,7 @@ class CreateNewUser implements CreatesNewUsers
                 Rule::unique(User::class),
             ],
             'password' => $this->passwordRules(),
-            'phone' => ['required', 'integer', 'digit:10'],
+            'phone' => ['required', 'string'],
             'role' => [Rule::enum(Role::class)],
         ])->validate();
 
