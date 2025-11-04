@@ -14,7 +14,8 @@ test('new users can register', function () {
         'password_confirmation' => 'password',
         'role' => "user",
         'phone' => "0123456789",
-        'addres' => "12 rue Lénine"
+        'addres' => "12 rue Lénine",
+        'siret' => ""
     ]);
 
     $this->assertAuthenticated();
