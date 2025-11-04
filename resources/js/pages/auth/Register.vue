@@ -37,7 +37,7 @@ const isClient = ref(true);
         </nav>
         <div>
             <Form
-                v-bind="store.form()"
+                v-bind="store.post()"
                 :reset-on-success="['password', 'password_confirmation']"
                 v-slot="{ errors, processing }"
                 class="client flex flex-col gap-6"
@@ -160,7 +160,7 @@ const isClient = ref(true);
                 </div>
             </Form>
             <Form
-                v-bind="store.form()"
+                v-bind="store.post()"
                 :reset-on-success="['password', 'password_confirmation']"
                 v-slot="{ errors, processing }"
                 class="seller flex flex-col gap-6"
@@ -210,12 +210,12 @@ const isClient = ref(true);
                     <div class="grid gap-2">
                         <Label for="adress">Address</Label>
                         <Input
-                            id="adress"
+                            id="addres"
                             type="text"
                             required
                             :tabindex="4"
                             autocomplete="address"
-                            name="address"
+                            name="addres"
                             placeholder="3 rue Azerty 50000 Azer"
                         />
                         <InputError :message="errors.address" />

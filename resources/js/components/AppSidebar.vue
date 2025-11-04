@@ -12,6 +12,7 @@ import {
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
 import { dashboard } from '@/routes';
+import { create } from "@/actions/App/Http/Controllers/ProductController"
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/vue3';
 import { BookOpen, Folder, LayoutGrid } from 'lucide-vue-next';
@@ -22,7 +23,10 @@ const mainNavItems: NavItem[] = [
         title: 'Dashboard',
         href: dashboard(),
         icon: LayoutGrid,
-    },
+    },{
+        title:"New Product",
+        href: create()
+    }
 ];
 
 const footerNavItems: NavItem[] = [
@@ -44,11 +48,7 @@ const footerNavItems: NavItem[] = [
         <SidebarHeader>
             <SidebarMenu>
                 <SidebarMenuItem>
-                    <SidebarMenuButton size="lg" as-child>
-                        <Link :href="dashboard()">
-                            <AppLogo />
-                        </Link>
-                    </SidebarMenuButton>
+                    <h1 class="text-2xl font-bold dark:text-white">Artisan<span class="text-green-600">Vue</span></h1>
                 </SidebarMenuItem>
             </SidebarMenu>
         </SidebarHeader>
