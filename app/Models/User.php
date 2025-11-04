@@ -25,6 +25,7 @@ class User extends Authenticatable
         "addres",
         'phone',
         'role',
+        'siret'
     ];
 
     protected $attributes = [
