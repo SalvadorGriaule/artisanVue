@@ -11,6 +11,8 @@ Route::get('/', function () {
     ]);
 })->name('home');
 
+Route::get("/allProduct",[ProductController::class,"all_product"]);
+
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::prefix('dashboard')->group(function () {
         Route::get('', function () {

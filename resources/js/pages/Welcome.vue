@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { dashboard, login, register } from '@/routes';
 import { Head, Link } from '@inertiajs/vue3';
+import { all_product } from '@/actions/App/Http/Controllers/ProductController';
+import DisplayList from '@/components/DisplayList.vue';
 
 withDefaults(
     defineProps<{
@@ -44,6 +46,9 @@ withDefaults(
             class="flex w-full items-center justify-center opacity-100 transition-opacity duration-750 lg:grow starting:opacity-0">
             <main
                 class="flex w-full max-w-[335px] flex-col-reverse overflow-hidden rounded-lg lg:max-w-4xl lg:flex-row">
+                <div>
+                    <DisplayList :url="all_product().url" />
+                </div>
             </main>
         </div>
         <div class="hidden h-14.5 lg:block"></div>
