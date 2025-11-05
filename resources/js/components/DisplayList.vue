@@ -1,0 +1,52 @@
+<script setup lang="ts">
+import { product_by_id_seller } from "@/actions/App/Http/Controllers/ProductController"
+import { Ref, ref, watchEffect, toValue } from "vue";
+
+const useFetch = (url: string) => {
+    const data: Ref<any> = ref(null);
+    const error: Ref<unknown | null> = ref(null);
+
+    watchEffect(async () => {
+        data.value = null;
+        error.value = null;
+
+        const urlValue = toValue(url);
+
+        try {
+            const res = await fetch(urlValue, { mode: 'cors', credentials: 'same-origin' });
+            data.value = await res.json();
+        } catch (e) {
+            error.value = e
+        }
+    })
+
+    return { data, error }
+}
+
+let product = useFetch(product_by_id_seller().url)
+console.log(product.data.value);
+
+</script>
+
+<template>
+    <div class="flex flex-wrap">
+        <div v-for="value in product.data.value" class="w-[47.5%] m-2 p-2">
+            <div class="flex justify-between mb-2">
+                <h3 class="text-2xl">{{ value.name }}</h3>
+                <p>{{ new Date(value.created_at).toLocaleDateString("fr-FR", {
+                    day: "numeric", weekday: "short", month:
+                    "long" }) }}
+                </p>
+            </div>
+            <div class="flex p-1 space-x-2">
+                <div class="w-1/4">
+                    <img :src="value.image_path" alt="">
+                </div>
+                <div>
+                    <p>{{ value.descritpion }}</p>
+                    <p>{{ value.price }} €</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

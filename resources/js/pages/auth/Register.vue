@@ -36,7 +36,7 @@ const isClient = ref(true);
                 Vendeur
             </button>
             <Form
-                v-bind="store.form()"
+                v-bind="store.post()"
                 :reset-on-success="['password', 'password_confirmation']"
                 v-slot="{ errors, processing }"
                 class="flex flex-col gap-6 p-5"
@@ -160,7 +160,7 @@ const isClient = ref(true);
                 </div>
             </Form>
             <Form
-                v-bind="store.form()"
+                v-bind="store.post()"
                 :reset-on-success="['password', 'password_confirmation']"
                 v-slot="{ errors, processing }"
                 class="flex flex-col gap-6 p-5"

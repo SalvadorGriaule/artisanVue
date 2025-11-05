@@ -8,7 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
 import AuthBase from '@/layouts/AuthLayout.vue';
 import { register } from '@/routes';
-import { store } from '@/routes/login';
+import { store } from '@/routes/register';
 import { request } from '@/routes/password';
 import { Form, Head } from '@inertiajs/vue3';
 
@@ -34,7 +34,7 @@ defineProps<{
         </div>
 
         <Form
-            v-bind="store.form()"
+            v-bind="store.post()"
             :reset-on-success="['password']"
             v-slot="{ errors, processing }"
             class="flex flex-col gap-6"

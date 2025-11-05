@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class Product extends Model
 {
@@ -14,6 +16,14 @@ class Product extends Model
         "image",
         "seller_id"
     ];
+    
+    protected $appends = ['image_path'];
+
+    protected function imagePath() : Attribute {
+        return new Attribute(
+            get: fn() => asset("/storage/".$this->image),
+        );
+    }
 
     public function seller(): BelongsTo
     {
