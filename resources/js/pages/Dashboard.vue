@@ -5,6 +5,7 @@ import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/vue3';
 import PlaceholderPattern from '../components/PlaceholderPattern.vue';
 import DisplayList from '@/components/DisplayList.vue';
+import { product_by_id_seller } from "@/actions/App/Http/Controllers/ProductController"
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -41,7 +42,7 @@ const breadcrumbs: BreadcrumbItem[] = [
             <div
                 class="relative min-h-[100vh] flex-1 rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border"
             >
-                <DisplayList />
+                <DisplayList :url='product_by_id_seller().url'/>
             </div>
         </div>
     </AppLayout>

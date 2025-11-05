@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { product_by_id_seller } from "@/actions/App/Http/Controllers/ProductController"
+
 import { Ref, ref, watchEffect, toValue } from "vue";
 
 const useFetch = (url: string) => {
@@ -23,9 +23,10 @@ const useFetch = (url: string) => {
     return { data, error }
 }
 
-let product = useFetch(product_by_id_seller().url)
-console.log(product.data.value);
+const props = defineProps<{url:string}>()
 
+let product = useFetch(props.url)
+console.log(product);
 </script>
 
 <template>
