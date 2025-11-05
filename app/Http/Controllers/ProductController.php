@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -14,6 +15,12 @@ class ProductController extends Controller
     public function index()
     {
         //
+    }
+
+    public function product_by_id_seller(Request $request) {
+        $res = Product::where('seller_id',$request->user()->id)->get();
+        
+        return response()->json($res);
     }
 
     /**
