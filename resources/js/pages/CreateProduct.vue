@@ -23,7 +23,7 @@ const breadcrumbs: BreadcrumbItem[] = [
     <Head title="CreateProduct" />
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
-            <Form v-bind="store.post()" :reset-on-success="['password', 'password_confirmation']"
+            <Form v-bind="store.post()"
                 v-slot="{ errors, processing }" class="client flex flex-col gap-6" v-show="isClient">
                 <div class="grid gap-6">
                     <div class="grid gap-2">
