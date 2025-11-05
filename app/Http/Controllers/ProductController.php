@@ -31,17 +31,16 @@ class ProductController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|unique:products',
-            'description' => 'required|string',
+            'descritpion' => 'required|string',
             'price' => 'required|numeric|min:0',
             'image' => 'required|image',
-            'seller_id' => 'required|numeric|exists:users,id'
         ]);
         
         $path = $request->file("image")->storePublicly("product","public");
 
         $product = Product::create([
             "name" => $request->input("name"),
-            'description' => $request->input("description"),
+            'descritpion' => $request->input("descritpion"),
             'price' => $request->input("price"),
             'image' => $path,
             'seller_id' => $request->user()->id,

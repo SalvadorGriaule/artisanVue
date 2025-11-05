@@ -61,8 +61,7 @@ const upload: Function = (form_data: FormData) => {
     if (fileDz != null && fileDz?.length > 0) {
         for (let i = 0; i < fileDz?.length; i++) {
             form_data.append(
-                (Array.isArray(type) && type.length == 1 ? firstMaj(type[0]) : "File") +
-                `${i}`,
+                (Array.isArray(type) && type.length == 1 ? type[0] : "File"),
                 fileDz[i]
             );
         }

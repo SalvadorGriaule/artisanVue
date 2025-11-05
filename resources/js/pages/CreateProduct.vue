@@ -35,17 +35,17 @@ const breadcrumbs: BreadcrumbItem[] = [
 
                     <div class="grid gap-2">
                         <Label for="description">description</Label>
-                        <textarea class="border h-48 p-2" placeholder="Descritpion"></textarea>
+                        <textarea class="border h-48 p-2" placeholder="Descritpion" name="descritpion"></textarea>
                     </div>
                    
                     <div class="grid gap-2">
                         <Label for="Price">Price</Label>
-                        <Input id="phone" type="number" required :tabindex="4" name="price"
+                        <Input id="price" type="number" required :tabindex="4" name="price"
                             placeholder="0" />
                         <InputError :message="errors.phone" />
                     </div>
 
-                    <FileUploader />
+                    <FileUploader :type='["image"]' />
 
                     <Button type="submit" class="mt-2 w-full" tabindex="" :disabled="processing"
                         data-test="register-user-button">
