@@ -3,6 +3,10 @@ import { dashboard, login, register } from '@/routes';
 import { Head, Link } from '@inertiajs/vue3';
 import { all_product } from '@/actions/App/Http/Controllers/ProductController';
 import DisplayList from '@/components/DisplayList.vue';
+import ShoppingCart from '@/components/ShoppingCart.vue';
+import { useTemplateRef } from 'vue';
+
+const shoppindCart = useTemplateRef("shoppingCart");
 
 withDefaults(
     defineProps<{
@@ -40,6 +44,7 @@ withDefaults(
                     Register
                     </Link>
                 </template>
+                <ShoppingCart ref="shoppingCart"/>
             </nav>
         </header>
         <div
