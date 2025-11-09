@@ -21,8 +21,8 @@ interface ProductCart {
 }
 
 const pathCartLocalStorage: string = "cart_storage"
-//const test: ProductCart[] = [{ id: 1,image:"",name:"name",price:39, quantity: 2 }, { id: 2,image:"",name:"name",price:39,  quantity: 1 }, { id: 3,image:"",name:"name",price:39,  quantity: 4 }, { id: 4,image:"",name:"name",price:39,  quantity: 2 }];
-//const cart = ref<ProductCart[]>(test);
+const test: ProductCart[] = [{ id: 1,image:"",name:"name",price:39, quantity: 2 }, { id: 2,image:"",name:"name",price:39,  quantity: 1 }, { id: 3,image:"",name:"name",price:39,  quantity: 4 }, { id: 4,image:"",name:"name",price:39,  quantity: 2 }];
+///const cart = ref<ProductCart[]>(test);
 const cart = ref<ProductCart[]>([]);
 
 onServerPrefetch(async () => {
