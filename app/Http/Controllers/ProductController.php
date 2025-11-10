@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
 {
@@ -74,7 +73,10 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $target = Product::find($id);
+
+        return Inertia::render('EditProduct', ['product' => $target]);
+
     }
 
     /**
@@ -92,7 +94,7 @@ class ProductController extends Controller
     {
         $target = Product::find($id);
 
-        if ($target["seller_id"] == $request->user()->id) {
+        if ($target['seller_id'] == $request->user()->id) {
             $target->delete();
 
             return response()->json([
