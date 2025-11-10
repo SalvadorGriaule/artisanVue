@@ -5,27 +5,26 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        
-    }
+    public function index() {}
 
-    public function all_product(){
+    public function all_product()
+    {
         $res = Product::all();
 
         return response()->json($res);
     }
 
-    public function product_by_id_seller(Request $request) {
-        $res = Product::where('seller_id',$request->user()->id)->get();
-        
+    public function product_by_id_seller(Request $request)
+    {
+        $res = Product::where('seller_id', $request->user()->id)->get();
+
         return response()->json($res);
     }
 
@@ -36,10 +35,10 @@ class ProductController extends Controller
     {
         return Inertia::render('CreateProduct');
     }
-    
+
     /**
      * Store a newly created resource in storage.
-    */
+     */
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -48,18 +47,18 @@ class ProductController extends Controller
             'price' => 'required|numeric|min:0',
             'image' => 'required|image',
         ]);
-        
-        $path = $request->file("image")->storePublicly("product","public");
+
+        $path = $request->file('image')->storePublicly('product', 'public');
 
         $product = Product::create([
-            "name" => $request->input("name"),
-            'descritpion' => $request->input("descritpion"),
-            'price' => $request->input("price"),
+            'name' => $request->input('name'),
+            'descritpion' => $request->input('descritpion'),
+            'price' => $request->input('price'),
             'image' => $path,
             'seller_id' => $request->user()->id,
         ]);
 
-        return redirect("/dashboard");
+        return redirect('/dashboard');
     }
 
     /**
@@ -89,8 +88,22 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request, string $id)
     {
-        //
+        $target = Product::find($id);
+
+        if ($target["seller_id"] == $request->user()->id) {
+            $target->delete();
+
+            return response()->json([
+                'result' => true,
+            ]);
+        }
+
+        return response()->json([
+            'result' => false,
+            'msg' => 'non autorisé',
+        ]);
+
     }
 }

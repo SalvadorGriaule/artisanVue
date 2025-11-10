@@ -23,6 +23,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 Route::get("/createProduct","create");
                 Route::post('/createProduct',"store")->name("storeProduct");
                 Route::get("/productOfUserSeller","product_by_id_seller");
+                Route::delete("/deleteProduct/{id}","destroy");
             });
         });
     });
