@@ -25,6 +25,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 Route::get("/productOfUserSeller","product_by_id_seller");
                 Route::delete("/deleteProduct/{id}","destroy");
                 Route::get("/editProduct/{id}","edit");
+                Route::put("/editProduct/{id}","update");
             });
         });
     });

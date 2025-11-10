@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
 class ProductController extends Controller
@@ -84,7 +85,28 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+
+        $validated = $request->validate([
+            'name' => ['required', 'string', Rule::unique('products')->ignore($id)],
+            'descritpion' => 'required|string',
+            'price' => 'required|numeric|min:0',
+            'image' => 'image',
+        ]);
+
+        $product = Product::find($id);
+
+        if (! empty($validated['image']) && $validated['image'] != 'undefined') {
+            $path = $request->file('image')->storePublicly('product', 'public');
+            $product->image = $path;
+        }
+
+        $product->name = $validated['name'];
+        $product->descritpion = $validated['descritpion'];
+        $product->price = $validated['price'];
+
+        $product->save();
+
+        return redirect('/dashboard');
     }
 
     /**
