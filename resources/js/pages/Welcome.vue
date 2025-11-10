@@ -52,7 +52,7 @@ withDefaults(
             <main
                 class="flex w-full max-w-[335px] flex-col-reverse overflow-hidden rounded-lg lg:max-w-4xl lg:flex-row">
                 <div>
-                    <DisplayList :url="all_product().url" />
+                    <DisplayList :url="all_product().url" mode="read"/>
                 </div>
             </main>
         </div>

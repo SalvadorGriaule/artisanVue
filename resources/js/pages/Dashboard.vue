@@ -42,7 +42,7 @@ const breadcrumbs: BreadcrumbItem[] = [
             <div
                 class="relative min-h-[100vh] flex-1 rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border"
             >
-                <DisplayList :url='product_by_id_seller().url'/>
+                <DisplayList :url='product_by_id_seller().url' mode="edit"/>
             </div>
         </div>
     </AppLayout>
