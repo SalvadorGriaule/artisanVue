@@ -1,7 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
 
@@ -11,21 +12,21 @@ Route::get('/', function () {
     ]);
 })->name('home');
 
-Route::get("/allProduct",[ProductController::class,"all_product"]);
+Route::get('/allProduct', [ProductController::class, 'all_product']);
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::prefix('dashboard')->group(function () {
-        Route::get('', function () {
-            return Inertia::render('Dashboard');
+        Route::get('', function (Request $request) {
+            return Inertia::render('Dashboard', ['user' => $request->user()]);
         })->name('dashboard');
-        Route::prefix('/seller')->group(function (){
-            Route::controller(ProductController::class)->group(function (){
-                Route::get("/createProduct","create");
-                Route::post('/createProduct',"store")->name("storeProduct");
-                Route::get("/productOfUserSeller","product_by_id_seller");
-                Route::delete("/deleteProduct/{id}","destroy");
-                Route::get("/editProduct/{id}","edit");
-                Route::put("/editProduct/{id}","update");
+        Route::prefix('/seller')->group(function () {
+            Route::controller(ProductController::class)->group(function () {
+                Route::get('/createProduct', 'create');
+                Route::post('/createProduct', 'store')->name('storeProduct');
+                Route::get('/productOfUserSeller', 'product_by_id_seller');
+                Route::delete('/deleteProduct/{id}', 'destroy');
+                Route::get('/editProduct/{id}', 'edit');
+                Route::put('/editProduct/{id}', 'update');
             });
         });
     });

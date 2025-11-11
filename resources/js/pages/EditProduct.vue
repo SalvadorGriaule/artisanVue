@@ -5,13 +5,14 @@ import { type BreadcrumbItem } from '@/types';
 import {Form, Head } from '@inertiajs/vue3';
 import { Label } from '@/components/ui/label';
 import Input from '@/components/ui/input/Input.vue';
-import { ref } from 'vue';
+import { ref,provide } from 'vue';
 import {update} from "@/actions/App/Http/Controllers/ProductController"
 import FileUploader from '@/components/FileUploader.vue';
 const isClient = ref(true);
 
-const props = defineProps<{ product: Record<string,any> }>()
-console.log(props.product);
+const props = defineProps<{ product: Record<string,any>, user: Record<string, any> }>()
+
+provide("user", props.user)
 
 const breadcrumbs: BreadcrumbItem[] = [
     {

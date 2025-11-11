@@ -5,7 +5,7 @@ import { type BreadcrumbItem } from '@/types';
 import {Form, Head } from '@inertiajs/vue3';
 import { Label } from '@/components/ui/label';
 import Input from '@/components/ui/input/Input.vue';
-import { ref } from 'vue';
+import { provide, ref } from 'vue';
 import {store} from "@/actions/App/Http/Controllers/ProductController"
 import FileUploader from '@/components/FileUploader.vue';
 const isClient = ref(true);
@@ -16,6 +16,11 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: dashboard().url,
     },
 ];
+
+const props = defineProps<{ user: Record<string, any> }>()
+
+provide("user", props.user)
+
 </script>
 
 <template>

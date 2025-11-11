@@ -31,9 +31,9 @@ class ProductController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        return Inertia::render('CreateProduct');
+        return Inertia::render('CreateProduct', ['user' => $request->user()]);
     }
 
     /**
@@ -68,7 +68,7 @@ class ProductController extends Controller
     {
         $target = Product::find($id);
 
-        return Inertia::render('EditProduct', ['product' => $target]);
+        return Inertia::render('EditProduct', ['product' => $target, 'user' => $request->user()]);
 
     }
 
