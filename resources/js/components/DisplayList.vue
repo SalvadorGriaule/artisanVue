@@ -40,7 +40,7 @@ let product = useFetch(props.url)
 
 <template>
     <div class="flex flex-wrap">
-        <div v-for="value in product.data.value" class="w-[47.5%] m-2 p-2 dark:text-white" :id="'prod-' + value.id">
+        <div v-for="value in product.data.value" class="w-[47.5%] m-2 p-2 dark:text-white border dark:border-white rounded-xl dark:bg-linear-to-br dark:from-stone-900 dark:to-stone-800" :id="'prod-' + value.id">
             <div>
                 <div v-if="mode == 'edit'" class="flex space-x-2">
                     <button @click="deleteProd(value.id)"
