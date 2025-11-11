@@ -2,8 +2,8 @@
 
 namespace App\Actions\Fortify;
 
-use App\Models\User;
 use App\Enums\Role;
+use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
@@ -31,16 +31,22 @@ class CreateNewUser implements CreatesNewUsers
             'password' => $this->passwordRules(),
             'phone' => ['required', 'string'],
             'role' => [Rule::enum(Role::class)],
+            'siret' => ['string', 'present_unless:role,user'],
         ])->validate();
 
-        return User::create([
+        $info = [
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => $input['password'],
             'addres' => $input['addres'],
             'phone' => $input['phone'],
             'role' => $input['role'],
-            'siret' => $input['siret']
-        ]);
+        ];
+
+        if ($input['role'] == 'seller') {
+            $info['siret'] = $input['siret'];
+        }
+
+        return User::create($info);
     }
 }
