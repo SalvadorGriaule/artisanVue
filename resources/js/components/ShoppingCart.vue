@@ -60,14 +60,15 @@ console.log(cart.value);
         <button class="rounded-md bg-gray-950/5 px-2.5 py-1.5 text-sm font-semibold text-gray-900 hover:bg-gray-950/10"
             @click="open = true">
             <div class="relative py-2">
-                <div class="t-0 absolute left-3">
+                <div class="top-0 absolute left-4">
                     <p class="flex h-2 w-2 items-center justify-center rounded-full bg-red-500 p-3 text-xs text-white">
                         {{ getAmountItemsInCart() }}</p>
                 </div>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor" class="file: mt-4 h-6 w-6">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon"
+                    aria-hidden="true" class="size-6 shrink-0 text-gray-400 group-hover:text-gray-500">
+                    <path
+                        d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
+                        stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
             </div>
         </button>
@@ -106,11 +107,11 @@ console.log(cart.value);
                                             <div class="mt-8">
                                                 <div class="flow-root">
                                                     <ul role="list" class="-my-6 divide-y divide-gray-200">
-                                                        <li v-for="product in cart" :key="product.id"
-                                                            class="flex py-6">
+                                                        <li v-for="product in cart" :key="product.id" class="flex py-6">
                                                             <div
                                                                 class="size-24 shrink-0 overflow-hidden rounded-md border border-gray-200">
-                                                                <img :src="'https://images.pexels.com/photos/90946/pexels-photo-90946.jpeg'" :alt="'product.imageAlt'"
+                                                                <img :src="'https://images.pexels.com/photos/90946/pexels-photo-90946.jpeg'"
+                                                                    :alt="'product.imageAlt'"
                                                                     class="size-full object-cover" />
                                                             </div>
 
@@ -120,7 +121,7 @@ console.log(cart.value);
                                                                         class="flex justify-between text-base font-medium text-gray-900">
                                                                         <h3>
                                                                             <a :href="'#'">{{ product.name
-                                                                            }}</a>
+                                                                                }}</a>
                                                                         </h3>
                                                                         <p class="ml-4">{{ product.price }}</p>
                                                                     </div>
