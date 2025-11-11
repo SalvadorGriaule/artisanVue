@@ -17,17 +17,21 @@ import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/vue3';
 import { BookOpen, Folder, LayoutGrid } from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
+import { inject } from 'vue';
 
-const mainNavItems: NavItem[] = [
+const user = inject("user");
+let mainNavItems: NavItem[] = [
     {
         title: 'Dashboard',
         href: dashboard(),
         icon: LayoutGrid,
-    },{
-        title:"New Product",
-        href: create()
     }
 ];
+
+if (user.role == "seller") mainNavItems.push({
+    title: "New Product",
+    href: create()
+})
 
 const footerNavItems: NavItem[] = [
     {
@@ -48,7 +52,9 @@ const footerNavItems: NavItem[] = [
         <SidebarHeader>
             <SidebarMenu>
                 <SidebarMenuItem>
-                    <h1 class="text-2xl font-bold dark:text-white">Artisan<span class="text-green-600">Vue</span></h1>
+                    <SidebarMenuButton size="lg" as-child>
+                        <AppLogo />
+                    </SidebarMenuButton>
                 </SidebarMenuItem>
             </SidebarMenu>
         </SidebarHeader>
