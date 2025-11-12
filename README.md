@@ -30,48 +30,22 @@
 
 ## 🧠 Architecture du projet  
 
-graph TD
-    subgraph Backend (Laravel)
-        A1[app/ ← contrôleurs, modèles] 
-        A2[config/ & bootstrap/]
-        A3[database/ ← migrations et seeders]
-        A4[routes/ ← web & api]
-        A5[tests/ ← PHPUnit tests]
-        A6[artisan ← CLI entrypoint]
-    end
-
-    subgraph Frontend (Vue + Vite)
-        B1[resources/js/ ← composants Vue, stores, routes]
-        B2[resources/css/ ← styles]
-        B3[package.json & pnpm-lock ← dépendances]
-        B4[vite.config.ts ← config Vite]
-    end
-
-    subgraph Public & Env
-        C1[public/ ← fichiers statiques, point d’entrée web]
-        C2[.env.example ← variables d’environnement]
-    end
-
-    subgraph Shared & Tools
-        D1[.editorconfig / .prettierrc / eslint.config.js]
-        D2[composer.json & composer.lock ← dépendances PHP]
-    end
-
-    %% Relations
-    C1 -->|serve| A1
-    A1 --> A3
-    A1 --> A4
-    A1 --> A5
-    B1 --> B4
-    B3 --> B4
-    B2 --> B1
-    D2 --> A1
-    D1 --> B1
-    C2 --> A1
-    C2 --> B1
-    B1 -->|uses API| A4
-    A4 -->|returns data| B1
-
+artisanVue/
+├── app/ # Code backend Laravel (contrôleurs, modèles, etc.)
+├── bootstrap/
+├── config/
+├── database/ # Migrations et seeders
+├── public/ # Point d’entrée HTTP
+├── resources/
+│ ├── js/ # Code Vue.js (components, stores, routes)
+│ ├── views/ # Vues Blade ou templates
+│ └── css/ # Styles
+├── routes/ # Routes web / API
+├── tests/ # Tests PHPUnit
+├── vite.config.ts # Configuration Vite
+├── package.json # Dépendances frontend
+├── composer.json # Dépendances backend
+└── .env.example # Variables d’environnement
 
 ---
 
