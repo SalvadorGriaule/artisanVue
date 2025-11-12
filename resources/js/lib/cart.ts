@@ -25,6 +25,9 @@ export class Cart {
         }
         return [];
     }
+
+    
+
     addToCart(productToAdd: ProductCart) {
         console.log(this.productsCart.value);
         let foundProduct: ProductCart | undefined =
