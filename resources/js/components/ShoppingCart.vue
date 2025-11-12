@@ -2,73 +2,26 @@
 import { onMounted, onServerPrefetch, ref } from 'vue';
 import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
 import { Cart } from '@/lib/cart';
-//defineExpose({ addToCart, removeFromCart })
 
-//const pathCartLocalStorage: string = "cart_storage"
-//const test: ProductCart[] = [{ id: 1, image: "", name: "name", price: 39, quantity: 2 }, { id: 2, image: "", name: "name", price: 39, quantity: 1 }, { id: 3, image: "", name: "name", price: 39, quantity: 4 }, { id: 4, image: "", name: "name", price: 39, quantity: 2 }];
-//const cart = ref<ProductCart[]>(test);
-//const cart = ref<ProductCart[]>([]);
-//const cartTest = new Cart();
 const open = ref(false)
 
 onServerPrefetch(async () => {
 
 })
 onMounted(async () => {
-    //cart.value = getCartFromLocalStorage();
+    
 })
 
-
-/* function addToCart(productToAdd: ProductCart) {
-    let foundProduct: ProductCart | undefined = cart.value.find(product => product.id === productToAdd.id);
-
-    foundProduct ? foundProduct.quantity++ : cart.value.push(productToAdd);
-    saveCartToLocalStorage();
-    saveCartToLocalStorage();
-}
-function removeFromCart(idToRemove: number): void {
-    let foundProduct: ProductCart | undefined = cart.value.find(product => product.id === idToRemove);
-    if (foundProduct) {
-        if (foundProduct.quantity > 1) {
-            foundProduct.quantity--
-        }
-        else {
-            let indexToRemove = cart.value.indexOf(foundProduct);
-            cart.value.splice(indexToRemove, 1);
-        }
-        saveCartToLocalStorage();
-        saveCartToLocalStorage();
-    }
-}
-function getAmountItemsInCart(): number {
-    return cart.value?.length ? cart.value.length : 0;
-}
-function saveCartToLocalStorage(): void {
-    JSON.stringify(cart.value);
-}
-function getCartFromLocalStorage(){
-    return JSON.parse(localStorage.getItem(pathCartLocalStorage) as string);
-} */
-console.log(Cart.instance.pathCartLocalStorage);
 </script>
 <template>
     <div>
         <button class="rounded-md bg-gray-950/5 px-2.5 py-1.5 text-sm font-semibold text-gray-900 hover:bg-gray-950/10"
             @click="open = true">
-    <div>
-        <button class="rounded-md bg-gray-950/5 px-2.5 py-1.5 text-sm font-semibold text-gray-900 hover:bg-gray-950/10"
-            @click="open = true">
             <div class="relative py-2">
-                <div class="top-0 absolute left-4">
                 <div class="top-0 absolute left-4">
                     <p class="flex h-2 w-2 items-center justify-center rounded-full bg-red-500 p-3 text-xs text-white">
                         {{ Cart.instance.getAmountItemsInCart() }}</p>
                 </div>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon"
-                    aria-hidden="true" class="size-6 shrink-0 text-gray-400 group-hover:text-gray-500">
-                    <path
-                        d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
-                        stroke-linecap="round" stroke-linejoin="round" />
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon"
                     aria-hidden="true" class="size-6 shrink-0 text-gray-400 group-hover:text-gray-500">
                     <path
@@ -183,9 +136,6 @@ console.log(Cart.instance.pathCartLocalStorage);
                         </div>
                     </div>
                 </div>
-            </Dialog>
-        </TransitionRoot>
-    </div>
             </Dialog>
         </TransitionRoot>
     </div>
