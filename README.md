@@ -30,59 +30,22 @@
 
 ## 🧠 Architecture du projet  
 
-```mermaid
-graph TD
-    %% =====================
-    %% Backend - Laravel
-    %% =====================
-    subgraph Backend [Backend (Laravel)]
-        A1[app/  <br>Logique métier (controllers, models, services)]
-        A2[bootstrap/  <br>Initialisation de Laravel]
-        A3[config/  <br>Configuration de l’application]
-        A4[database/  <br>Migrations & seeders]
-        A5[routes/  <br>Définition des routes Web & API]
-        A6[tests/  <br>Tests PHPUnit]
-        A7[artisan  <br>CLI Laravel]
-        A8[composer.json  <br>Dépendances backend]
-    end
-
-    %% =====================
-    %% Frontend - Vue + Vite
-    %% =====================
-    subgraph Frontend [ Frontend (Vue 3 + Vite)]
-        B1[resources/js/  <br>Composants Vue, stores, routes]
-        B2[resources/views/  <br>Vues Blade / templates]
-        B3[resources/css/  <br>Styles]
-        B4[vite.config.ts  <br>Configuration de Vite]
-        B5[package.json  <br>Dépendances frontend]
-    end
-
-    %% =====================
-    %% Public & Configuration
-    %% =====================
-    subgraph Environnement [ Public & Configuration]
-        C1[public/  <br>Point d’entrée HTTP & fichiers statiques]
-        C2[.env.example  <br>Variables d’environnement]
-    end
-
-    %% =====================
-    %% Relations principales
-    %% =====================
-    C1 -->|Requêtes HTTP| A5
-    A5 -->|Réponses JSON / HTML| B1
-    B1 -->|Appels API| A5
-    A1 --> A4
-    A1 --> A3
-    A1 --> A6
-    A1 --> A8
-    A3 --> A2
-    B1 --> B3
-    B1 --> B4
-    B1 --> B5
-    C2 --> A1
-    C2 --> B1
-    A7 --> A1
-```
+artisanVue/  
+├── app/ # Code backend Laravel (contrôleurs, modèles, etc.)  
+├── bootstrap/ # Initialisation du framework Laravel  
+├── config/ # Fichiers de configuration  
+├── database/ # Migrations et seeders  
+├── public/ # Point d’entrée web, fichiers statiques  
+├── resources/  
+│ ├── js/ # Code front-end (Vue.js : composants, stores, routes)  
+│ ├── views/ # Vues Blade ou templates front-end  
+│ └── css/ # Feuilles de style  
+├── routes/ # Définition des routes web et API  
+├── tests/ # Tests unitaires/backend (PHPUnit)  
+├── vite.config.ts # Configuration de Vite (frontend)  
+├── package.json # Dépendances/frontend, scripts npm/pnpm  
+├── composer.json # Dépendances/backend, scripts artisan  
+└── .env.example # Fichier d’exemple de configuration environnementale  
 ---
 
 ## 🧩 Technologies utilisées  
