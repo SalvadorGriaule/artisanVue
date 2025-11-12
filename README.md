@@ -36,34 +36,34 @@ graph TD
     %% =====================
     %% Backend - Laravel
     %% =====================
-    subgraph Backend [💾 Backend (Laravel)]
-        A1[app/ 🧠 <br>Logique métier (controllers, models, services)]
-        A2[bootstrap/ ⚙️ <br>Initialisation de Laravel]
-        A3[config/ ⚡ <br>Configuration de l’application]
-        A4[database/ 🗄️ <br>Migrations & seeders]
-        A5[routes/ 🚏 <br>Définition des routes Web & API]
-        A6[tests/ 🧪 <br>Tests PHPUnit]
-        A7[artisan 🧰 <br>CLI Laravel]
-        A8[composer.json 📦 <br>Dépendances backend]
+    subgraph Backend [Backend (Laravel)]
+        A1[app/  <br>Logique métier (controllers, models, services)]
+        A2[bootstrap/  <br>Initialisation de Laravel]
+        A3[config/  <br>Configuration de l’application]
+        A4[database/  <br>Migrations & seeders]
+        A5[routes/  <br>Définition des routes Web & API]
+        A6[tests/  <br>Tests PHPUnit]
+        A7[artisan  <br>CLI Laravel]
+        A8[composer.json  <br>Dépendances backend]
     end
 
     %% =====================
     %% Frontend - Vue + Vite
     %% =====================
-    subgraph Frontend [🎨 Frontend (Vue 3 + Vite)]
-        B1[resources/js/ 💻 <br>Composants Vue, stores, routes]
-        B2[resources/views/ 🧩 <br>Vues Blade / templates]
-        B3[resources/css/ 💅 <br>Styles]
-        B4[vite.config.ts ⚙️ <br>Configuration de Vite]
-        B5[package.json 📦 <br>Dépendances frontend]
+    subgraph Frontend [ Frontend (Vue 3 + Vite)]
+        B1[resources/js/  <br>Composants Vue, stores, routes]
+        B2[resources/views/  <br>Vues Blade / templates]
+        B3[resources/css/  <br>Styles]
+        B4[vite.config.ts  <br>Configuration de Vite]
+        B5[package.json  <br>Dépendances frontend]
     end
 
     %% =====================
     %% Public & Configuration
     %% =====================
-    subgraph Environnement [🌍 Public & Configuration]
-        C1[public/ 🌐 <br>Point d’entrée HTTP & fichiers statiques]
-        C2[.env.example 🔑 <br>Variables d’environnement]
+    subgraph Environnement [ Public & Configuration]
+        C1[public/  <br>Point d’entrée HTTP & fichiers statiques]
+        C2[.env.example  <br>Variables d’environnement]
     end
 
     %% =====================
