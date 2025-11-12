@@ -30,6 +30,7 @@
 
 ## 🧠 Architecture du projet  
 
+```mermaid
 artisanVue/
 ├── app/ # Code backend Laravel (contrôleurs, modèles, etc.)
 ├── bootstrap/
@@ -46,6 +47,7 @@ artisanVue/
 ├── package.json # Dépendances frontend
 ├── composer.json # Dépendances backend
 └── .env.example # Variables d’environnement
+```
 
 ---
 
