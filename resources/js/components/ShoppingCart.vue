@@ -2,8 +2,24 @@
 import { onMounted, onServerPrefetch, ref } from 'vue';
 import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
 import { Cart } from '@/lib/cart';
+import axios from 'axios';
 
 const open = ref(false)
+
+const click = async () => {
+    console.log(Cart.instance.getCartFromLocalStorage());
+    
+    let data = []
+    // let form = new FormData()
+    // for(let elem of Cart.instance.getCartFromLocalStorage()){
+    //     form.append("row[]",JSON.stringify({quantity:elem.quantity,product_id:elem.id}))
+    // }
+    // console.log(form);
+    for(let elem of Cart.instance.getCartFromLocalStorage()){
+        data.push({quantity:elem.quantity,product_id:elem.id})
+    }
+    const resp = await axios.post("/createOrder",data,)
+}
 
 onServerPrefetch(async () => {
 
@@ -116,7 +132,7 @@ onMounted(async () => {
                                                 checkout.</p>
                                             <div class="mt-6">
                                                 <a href="#"
-                                                    class="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-xs hover:bg-indigo-700">Checkout</a>
+                                                   @click="click" class="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-xs hover:bg-indigo-700">Checkout</a>
                                             </div>
                                             <div class="mt-6 flex justify-center text-center text-sm text-gray-500">
                                                 <p>
