@@ -1,31 +1,25 @@
 <script setup lang="ts">
 import { onMounted, onServerPrefetch, ref } from 'vue';
 import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
-defineExpose({ addToCart, removeFromCart })
+import { Cart } from '@/lib/cart';
+//defineExpose({ addToCart, removeFromCart })
 
-interface ProductCart {
-    id: number;
-    image: string;
-    name: string;
-    price: number;
-    quantity: number;
-}
-
-const pathCartLocalStorage: string = "cart_storage"
+//const pathCartLocalStorage: string = "cart_storage"
 //const test: ProductCart[] = [{ id: 1, image: "", name: "name", price: 39, quantity: 2 }, { id: 2, image: "", name: "name", price: 39, quantity: 1 }, { id: 3, image: "", name: "name", price: 39, quantity: 4 }, { id: 4, image: "", name: "name", price: 39, quantity: 2 }];
 //const cart = ref<ProductCart[]>(test);
-const cart = ref<ProductCart[]>([]);
+//const cart = ref<ProductCart[]>([]);
+//const cartTest = new Cart();
 const open = ref(false)
 
 onServerPrefetch(async () => {
 
 })
 onMounted(async () => {
-    cart.value = getCartFromLocalStorage();
+    //cart.value = getCartFromLocalStorage();
 })
 
 
-function addToCart(productToAdd: ProductCart): void {
+/* function addToCart(productToAdd: ProductCart) {
     let foundProduct: ProductCart | undefined = cart.value.find(product => product.id === productToAdd.id);
 
     foundProduct ? foundProduct.quantity++ : cart.value.push(productToAdd);
@@ -50,10 +44,10 @@ function getAmountItemsInCart(): number {
 function saveCartToLocalStorage(): void {
     JSON.stringify(cart.value);
 }
-function getCartFromLocalStorage(): ProductCart[] {
+function getCartFromLocalStorage(){
     return JSON.parse(localStorage.getItem(pathCartLocalStorage) as string);
-}
-console.log(cart.value);
+} */
+console.log(Cart.instance.pathCartLocalStorage);
 </script>
 <template>
     <div>
@@ -62,7 +56,7 @@ console.log(cart.value);
             <div class="relative py-2">
                 <div class="top-0 absolute left-4">
                     <p class="flex h-2 w-2 items-center justify-center rounded-full bg-red-500 p-3 text-xs text-white">
-                        {{ getAmountItemsInCart() }}</p>
+                        {{ Cart.instance.getAmountItemsInCart() }}</p>
                 </div>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon"
                     aria-hidden="true" class="size-6 shrink-0 text-gray-400 group-hover:text-gray-500">
@@ -106,11 +100,13 @@ console.log(cart.value);
 
                                             <div class="mt-8">
                                                 <div class="flow-root">
-                                                    <ul role="list" class="-my-6 divide-y divide-gray-200">
-                                                        <li v-for="product in cart" :key="product.id" class="flex py-6">
+                                                    <ul v-if="Cart.instance?.productsCart" role="list"
+                                                        class="-my-6 divide-y divide-gray-200">
+                                                        <li v-for="product in Cart.instance.productsCart.value"
+                                                            :key="product.id" class="flex py-6">
                                                             <div
                                                                 class="size-24 shrink-0 overflow-hidden rounded-md border border-gray-200">
-                                                                <img :src="'https://images.pexels.com/photos/90946/pexels-photo-90946.jpeg'"
+                                                                <img :src="product.image_path"
                                                                     :alt="'product.imageAlt'"
                                                                     class="size-full object-cover" />
                                                             </div>
@@ -121,7 +117,7 @@ console.log(cart.value);
                                                                         class="flex justify-between text-base font-medium text-gray-900">
                                                                         <h3>
                                                                             <a :href="'#'">{{ product.name
-                                                                                }}</a>
+                                                                            }}</a>
                                                                         </h3>
                                                                         <p class="ml-4">{{ product.price }}</p>
                                                                     </div>
@@ -134,7 +130,9 @@ console.log(cart.value);
                                                                     </p>
 
                                                                     <div class="flex">
-                                                                        <button type="button"
+                                                                        <button
+                                                                            @click="Cart.instance.removeFromCart(product.id)"
+                                                                            type="button"
                                                                             class="font-medium text-indigo-600 hover:text-indigo-500">Remove</button>
                                                                     </div>
                                                                 </div>
