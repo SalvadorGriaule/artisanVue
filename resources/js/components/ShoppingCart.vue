@@ -24,6 +24,7 @@ onMounted(async () => {
 
     foundProduct ? foundProduct.quantity++ : cart.value.push(productToAdd);
     saveCartToLocalStorage();
+    saveCartToLocalStorage();
 }
 function removeFromCart(idToRemove: number): void {
     let foundProduct: ProductCart | undefined = cart.value.find(product => product.id === idToRemove);
@@ -35,6 +36,7 @@ function removeFromCart(idToRemove: number): void {
             let indexToRemove = cart.value.indexOf(foundProduct);
             cart.value.splice(indexToRemove, 1);
         }
+        saveCartToLocalStorage();
         saveCartToLocalStorage();
     }
 }
@@ -53,11 +55,20 @@ console.log(Cart.instance.pathCartLocalStorage);
     <div>
         <button class="rounded-md bg-gray-950/5 px-2.5 py-1.5 text-sm font-semibold text-gray-900 hover:bg-gray-950/10"
             @click="open = true">
+    <div>
+        <button class="rounded-md bg-gray-950/5 px-2.5 py-1.5 text-sm font-semibold text-gray-900 hover:bg-gray-950/10"
+            @click="open = true">
             <div class="relative py-2">
+                <div class="top-0 absolute left-4">
                 <div class="top-0 absolute left-4">
                     <p class="flex h-2 w-2 items-center justify-center rounded-full bg-red-500 p-3 text-xs text-white">
                         {{ Cart.instance.getAmountItemsInCart() }}</p>
                 </div>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon"
+                    aria-hidden="true" class="size-6 shrink-0 text-gray-400 group-hover:text-gray-500">
+                    <path
+                        d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
+                        stroke-linecap="round" stroke-linejoin="round" />
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon"
                     aria-hidden="true" class="size-6 shrink-0 text-gray-400 group-hover:text-gray-500">
                     <path
@@ -172,6 +183,9 @@ console.log(Cart.instance.pathCartLocalStorage);
                         </div>
                     </div>
                 </div>
+            </Dialog>
+        </TransitionRoot>
+    </div>
             </Dialog>
         </TransitionRoot>
     </div>
