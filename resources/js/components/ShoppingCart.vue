@@ -1,129 +1,142 @@
 <script setup lang="ts">
 import { onMounted, onServerPrefetch, ref } from 'vue';
-import {
-    DialogClose,
-    DialogContent,
-    DialogDescription,
-    DialogOverlay,
-    DialogPortal,
-    DialogRoot,
-    DialogTitle,
-    DialogTrigger,
-} from 'reka-ui'
-defineExpose({ addToCart, removeFromCart })
+import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
+import { Cart } from '@/lib/cart';
 
-interface ProductCart {
-    id: number;
-    image: string;
-    name: string;
-    price: number;
-    quantity: number;
-}
-
-const pathCartLocalStorage: string = "cart_storage"
-const test: ProductCart[] = [{ id: 1,image:"",name:"name",price:39, quantity: 2 }, { id: 2,image:"",name:"name",price:39,  quantity: 1 }, { id: 3,image:"",name:"name",price:39,  quantity: 4 }, { id: 4,image:"",name:"name",price:39,  quantity: 2 }];
-///const cart = ref<ProductCart[]>(test);
-const cart = ref<ProductCart[]>([]);
+const open = ref(false)
 
 onServerPrefetch(async () => {
 
 })
 onMounted(async () => {
-    cart.value = getCartFromLocalStorage();
+    
 })
 
-
-function addToCart(productToAdd: ProductCart): void {
-    let foundProduct: ProductCart | undefined = cart.value.find(product => product.id === productToAdd.id);
-
-    foundProduct ? foundProduct.quantity++ : cart.value.push(productToAdd);
-}
-function removeFromCart(idToRemove: number): void {
-    let foundProduct: ProductCart | undefined = cart.value.find(product => product.id === idToRemove);
-    if (foundProduct) {
-        if (foundProduct.quantity > 1) {
-            foundProduct.quantity--
-        }
-        else {
-            let indexToRemove = cart.value.indexOf(foundProduct);
-            cart.value.splice(indexToRemove, 1);
-        }
-    }
-}
-function getAmountItemsInCart(): number {
-    return cart.value?.length ? cart.value.length : 0;
-}
-function saveCartToLocalStorage(): void {
-    JSON.stringify(cart.value);
-}
-function getCartFromLocalStorage(): ProductCart[] {
-    return JSON.parse(localStorage.getItem(pathCartLocalStorage) as string);
-}
-console.log(cart.value);
 </script>
 <template>
-
-    <DialogRoot>
-        <DialogTrigger>
+    <div>
+        <button class="rounded-md bg-gray-950/5 px-2.5 py-1.5 text-sm font-semibold text-gray-900 hover:bg-gray-950/10"
+            @click="open = true">
             <div class="relative py-2">
-                <div class="t-0 absolute left-3">
+                <div class="top-0 absolute left-4">
                     <p class="flex h-2 w-2 items-center justify-center rounded-full bg-red-500 p-3 text-xs text-white">
-                        {{ getAmountItemsInCart() }}</p>
+                        {{ Cart.instance.getAmountItemsInCart() }}</p>
                 </div>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor" class="file: mt-4 h-6 w-6">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon"
+                    aria-hidden="true" class="size-6 shrink-0 text-gray-400 group-hover:text-gray-500">
+                    <path
+                        d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
+                        stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
             </div>
-        </DialogTrigger>
-        <DialogPortal>
-            <DialogOverlay class="bg-blackA9 data-[state=open]:animate-overlayShow fixed inset-0 z-30" />
-            <DialogContent
-                class="data-[state=open]:animate-contentShow fixed top-[10%] left-[80%] rounded-[6px] bg-black p-[25px] shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none z-[100]">
-                <DialogTitle class="text-mauve12 mb-10 text-[17px] font-semibold">
-                    Shopping Cart
-                </DialogTitle>
-                <DialogDescription class="text-mauve11 mt-[10px] mb-5 text-sm leading-normal">
-                </DialogDescription>
-                <div v-if="getAmountItemsInCart() > 0">
-                    <div v-for="item in cart" class="mb-5">
-                        <p>Product Name</p>
-                        <img src="https://images.pexels.com/photos/90946/pexels-photo-90946.jpeg" alt="" class="w-xs">
-                        <div class="flex flex-row justify-evenly">
+        </button>
+        <TransitionRoot as="template" :show="open">
+            <Dialog class="relative z-10" @close="open = false">
+                <TransitionChild as="template" enter="ease-in-out duration-500" enter-from="opacity-0" enter-to=""
+                    leave="ease-in-out duration-500" leave-from="" leave-to="opacity-0">
+                    <div class="fixed inset-0 bg-gray-500/75 transition-opacity"></div>
+                </TransitionChild>
 
-                            <button type="button" @click="removeFromCart(item.id)"
-                                class="text-white bg-red-700 hover:bg-red-800 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
-                                    <path fill="currentColor" d="M19 12.998H5v-2h14z" />
-                                </svg>
-                                <span class="sr-only">Icon description</span>
-                            </button>
-                            <span class="m-auto">{{ item.quantity }}</span>
-                            <button type="button" @click="addToCart(item)"
-                                class="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
-                                    <path fill="currentColor" d="M19 12.998h-6v6h-2v-6H5v-2h6v-6h2v6h6z" />
-                                </svg>
-                                <span class="sr-only">Icon description</span>
-                            </button>
+                <div class="fixed inset-0 overflow-hidden">
+                    <div class="absolute inset-0 overflow-hidden">
+                        <div class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10 sm:pl-16">
+                            <TransitionChild as="template"
+                                enter="transform transition ease-in-out duration-500 sm:duration-700"
+                                enter-from="translate-x-full" enter-to="translate-x-0"
+                                leave="transform transition ease-in-out duration-500 sm:duration-700"
+                                leave-from="translate-x-0" leave-to="translate-x-full">
+                                <DialogPanel class="pointer-events-auto w-screen max-w-md">
+                                    <div class="flex h-full flex-col overflow-y-auto bg-white shadow-xl">
+                                        <div class="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
+                                            <div class="flex items-start justify-between">
+                                                <DialogTitle class="text-lg font-medium text-gray-900">Shopping cart
+                                                </DialogTitle>
+                                                <div class="ml-3 flex h-7 items-center">
+                                                    <button type="button"
+                                                        class="relative -m-2 p-2 text-gray-400 hover:text-gray-500"
+                                                        @click="open = false">
+                                                        <span class="absolute -inset-0.5"></span>
+                                                        <span class="sr-only">Close panel</span>
+                                                        X
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            <div class="mt-8">
+                                                <div class="flow-root">
+                                                    <ul v-if="Cart.instance?.productsCart" role="list"
+                                                        class="-my-6 divide-y divide-gray-200">
+                                                        <li v-for="product in Cart.instance.productsCart.value"
+                                                            :key="product.id" class="flex py-6">
+                                                            <div
+                                                                class="size-24 shrink-0 overflow-hidden rounded-md border border-gray-200">
+                                                                <img :src="product.image_path"
+                                                                    :alt="'product.imageAlt'"
+                                                                    class="size-full object-cover" />
+                                                            </div>
+
+                                                            <div class="ml-4 flex flex-1 flex-col">
+                                                                <div>
+                                                                    <div
+                                                                        class="flex justify-between text-base font-medium text-gray-900">
+                                                                        <h3>
+                                                                            <a :href="'#'">{{ product.name
+                                                                            }}</a>
+                                                                        </h3>
+                                                                        <p class="ml-4">{{ product.price }}</p>
+                                                                    </div>
+                                                                    <p class="mt-1 text-sm text-gray-500">{{
+                                                                        'product.color' }}</p>
+                                                                </div>
+                                                                <div
+                                                                    class="flex flex-1 items-end justify-between text-sm">
+                                                                    <p class="text-gray-500">Qty {{ product.quantity }}
+                                                                    </p>
+
+                                                                    <div class="flex">
+                                                                        <button
+                                                                            @click="Cart.instance.removeFromCart(product.id)"
+                                                                            type="button"
+                                                                            class="font-medium text-indigo-600 hover:text-indigo-500">Remove</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="border-t border-gray-200 px-4 py-6 sm:px-6">
+                                            <div class="flex justify-between text-base font-medium text-gray-900">
+                                                <p>Subtotal</p>
+                                                <p>$262.00</p>
+                                            </div>
+                                            <p class="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at
+                                                checkout.</p>
+                                            <div class="mt-6">
+                                                <a href="#"
+                                                    class="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-xs hover:bg-indigo-700">Checkout</a>
+                                            </div>
+                                            <div class="mt-6 flex justify-center text-center text-sm text-gray-500">
+                                                <p>
+                                                    or{{ ' ' }}
+                                                    <button type="button"
+                                                        class="font-medium text-indigo-600 hover:text-indigo-500"
+                                                        @click="open = false">
+                                                        Continue Shopping
+                                                        <span aria-hidden="true"> &rarr;</span>
+                                                    </button>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </DialogPanel>
+                            </TransitionChild>
                         </div>
                     </div>
                 </div>
-                <div class="mt-[25px] flex justify-end">
-                    <DialogClose as-child>
-                        <button type="button"
-                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                            <svg class="w-3.5 h-3.5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                fill="currentColor" viewBox="0 0 18 21">
-                                <path
-                                    d="M15 12a1 1 0 0 0 .962-.726l2-7A1 1 0 0 0 17 3H3.77L3.175.745A1 1 0 0 0 2.208 0H1a1 1 0 0 0 0 2h.438l.6 2.255v.019l2 7 .746 2.986A3 3 0 1 0 9 17a2.966 2.966 0 0 0-.184-1h2.368c-.118.32-.18.659-.184 1a3 3 0 1 0 3-3H6.78l-.5-2H15Z" />
-                            </svg>
-                            Buy now
-                        </button>
-                    </DialogClose>
-                </div>
-            </DialogContent>
-        </DialogPortal>
-    </DialogRoot>
+            </Dialog>
+        </TransitionRoot>
+    </div>
 </template>

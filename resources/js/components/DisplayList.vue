@@ -3,6 +3,7 @@ import axios from "axios";
 import { Ref, ref, watchEffect, toValue } from "vue";
 import { Link } from "@inertiajs/vue3";
 import { destroy, edit } from "@/actions/App/Http/Controllers/ProductController";
+import { Cart } from '@/lib/cart';
 
 const useFetch = (url: string, method: "get" | "post" | "delete" | "put" = "get") => {
     const data: Ref<any> = ref(null);
@@ -63,6 +64,7 @@ let product = useFetch(props.url)
                         <p>{{ value.descritpion }}</p>
                         <p>{{ value.price }} €</p>
                     </div>
+                    <button @click="Cart.instance.addToCart(value)">Add to cart</button>
                 </div>
             </div>
         </div>
